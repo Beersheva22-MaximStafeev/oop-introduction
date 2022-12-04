@@ -46,15 +46,20 @@ class RectangleTestMy {
 	}
 	
 	@Test
-	@Disabled
 	void testLeft() {
-		SquareLeftTriangle squareLeftTriangle = new SquareLeftTriangle(10);
-		displayStrings(squareLeftTriangle.presentation(3));
+		int offset = 3;
+		int width = 8;
+		displayStrings(new String[] {String.format("Left (width: %s, offset: %s):", "" + width, "" + offset)});
+		SquareLeftTriangle squareLeftTriangle = new SquareLeftTriangle(width);
+		displayStrings(squareLeftTriangle.presentation(offset));
 	}
 	
 	@Test
 	void testRight() {
-		SquareRightTriangle squareRightTriangle = new SquareRightTriangle(10);
-		displayStrings(squareRightTriangle.presentation(0));
+		int offset = 3;
+		int width = 6;
+		displayStrings(new String[] {String.format("Right (width: %s, offset: %s):", "" + width, "" + offset)});
+		SquareRightTriangle squareRightTriangle = new SquareRightTriangle(width);
+		displayStrings(squareRightTriangle.presentation(offset));
 	}
 }
