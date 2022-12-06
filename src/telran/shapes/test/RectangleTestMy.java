@@ -47,6 +47,7 @@ class RectangleTestMy {
 	
 	@Test
 	void testLeft() {
+		Rectangle.setBackground("`");
 		int offset = 3;
 		int width = 8;
 		displayStrings(new String[] {String.format("Left (width: %s, offset: %s):", "" + width, "" + offset)});
@@ -56,6 +57,7 @@ class RectangleTestMy {
 	
 	@Test
 	void testRight() {
+		Rectangle.setBackground("`");
 		int offset = 3;
 		int width = 6;
 		displayStrings(new String[] {String.format("Right (width: %s, offset: %s):", "" + width, "" + offset)});

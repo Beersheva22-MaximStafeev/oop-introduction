@@ -2,9 +2,11 @@ package telran.shapes;
 
 public class Rectangle {
 	public static final String SYMBOL = "*"; // это константа, которая вида всем и в статике
+	public static final String BACKGROUND = " "; // это константа, которая вида всем и в статике
 	private int width;
 	private int height;
 	private static String symbol = SYMBOL; 
+	private static String background = BACKGROUND; 
 	// это статическая переменная, которую можно изменить и 
 	// её использование в экземпляре объекта всегда одинаково для всех экземпляров 
 	
@@ -14,6 +16,14 @@ public class Rectangle {
 
 	public static void setSymbol(String symbol) {
 		Rectangle.symbol = symbol;
+	}
+
+	public static String getBackground() {
+		return background;
+	}
+
+	public static void setBackground(String background) {
+		Rectangle.background = background;
 	}
 
 	public Rectangle(int width, int height) {
@@ -58,6 +68,6 @@ public class Rectangle {
 	}
 
 	private String getOffset(int offset) {
-		return " ".repeat(offset);
+		return background.repeat(offset);
 	}
 }

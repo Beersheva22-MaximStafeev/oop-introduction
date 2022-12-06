@@ -19,17 +19,17 @@ public class SquareTriangle extends Square {
 			upOffset = getWidth() - 1;
 			diagonalIncrement = -1;
 		}
-		res[0] = getSpaces(offset + upOffset) + getSymbol();
+		res[0] = getSpaces(offset + upOffset) + getSymbol() + getSpaces(getWidth() - upOffset - 1);
 		res[res.length - 1] = getSpaces(offset) + getSymbol().repeat(getWidth());
 		upOffset = upOffset + diagonalIncrement;
 		for (int i = 1; i < res.length - 1; i++) {
-			res[i] = getSpaces(offset + upOffset) + getSymbol() + getSpaces(i-1) + getSymbol();
+			res[i] = getSpaces(offset + upOffset) + getSymbol() + getSpaces(i-1) + getSymbol() + getSpaces(getWidth() - upOffset - i - 1);
 			upOffset = upOffset + diagonalIncrement;
 		}
 		return res;
 	}
 	
 	private String getSpaces(int count) {
-		return " ".repeat(count);
+		return getBackground().repeat(count);
 	}
 }
