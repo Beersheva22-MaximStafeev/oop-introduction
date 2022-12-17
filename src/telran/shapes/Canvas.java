@@ -34,7 +34,13 @@ public class Canvas extends Shape {
 		this.margin = margin;
 	}
 
-
+	private String[] getCustomPresentation(int offset, int i) {
+		shapes[i].setHeight(getHeight());
+		if (shapes[i] instanceof Canvas) {
+			((Canvas)shapes[i]).setDirection(direction);
+		}
+		return shapes[i].presentation(offset);
+	}
 
 	@Override
 	public String[] presentation(int offset) {
@@ -47,12 +53,11 @@ public class Canvas extends Shape {
 				for (int i = 0; i < res.length; i++) {
 					res[i] = "";
 				}
-				for (int i = 0; i < shapes.length; i++) {
-					shapes[i].setHeight(height);
-					if (shapes[i] instanceof Canvas) {
-						((Canvas)shapes[i]).setDirection(direction);
-					}
-					res = concatRight(res, shapes[i].presentation(i == 0 ? offset : margin));
+				if (shapes.length > 0) {
+					res = getCustomPresentation(offset, 0);
+				}
+				for (int i = 1; i < shapes.length; i++) {
+					res = concatRight(res, getCustomPresentation(margin, i));
 				}
 				break;
 			case "column":
