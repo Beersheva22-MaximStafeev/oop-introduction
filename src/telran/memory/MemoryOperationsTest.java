@@ -2,6 +2,7 @@ package telran.memory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class MemoryOperationsTest {
@@ -19,6 +20,16 @@ class MemoryOperationsTest {
 			flagException = true;
 		}
 		assertTrue(flagException);
+	}
+
+	
+	@Test
+	void maxMemoryTest1() {
+		MemoryOperationsPseudo memoryOperationsPseudo = new MemoryOperationsPseudo();
+		for (int test = 520093080; test < 520093980; test++) {
+			memoryOperationsPseudo.setMaxValue(test);
+			assertEquals(test, memoryOperationsPseudo.getMaxAvialableMemory());
+		}
 	}
 
 }

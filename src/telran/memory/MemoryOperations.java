@@ -7,7 +7,7 @@ public class MemoryOperations {
 		int r = Integer.MAX_VALUE;
 		int res = l + (r - l) / 2;
 		byte[] ar = null;
-		while (l < r) {
+		while (l <= r) {
 			try {
 				ar = new byte[res];
 				l = res + 1;
@@ -17,6 +17,6 @@ public class MemoryOperations {
 			ar = null;
 			res = l + (r - l) / 2;
 		}
-		return res;
+		return res - 1;
 	}
 }
