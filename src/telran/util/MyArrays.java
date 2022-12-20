@@ -13,7 +13,6 @@ public class MyArrays {
 		int middle = right / 2;
 		while (left <= right && arraySorted[left] != number) {
 			if (comparator.compare(number, arraySorted[middle]) <= 0) {
-//			if (number <= arraySorted[middle]) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
@@ -25,7 +24,6 @@ public class MyArrays {
 			res = -arraySorted.length - 1;
 		} else {
 			if (comparator.compare(arraySorted[left], number) == 0) {
-//			if (arraySorted[left] == number) {
 				res = left;
 			} else {
 				res = -left - 1;
