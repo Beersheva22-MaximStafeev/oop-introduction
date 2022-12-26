@@ -1,6 +1,8 @@
 package telran.util;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class MyArrays {
 	public static void sortUniversal(Object[] objects) {
@@ -11,7 +13,7 @@ public class MyArrays {
 		int left = 0;
 		int right = arraySorted.length - 1;
 		int middle = right / 2;
-		while (left <= right && arraySorted[left] != number) {
+		while (left <= right && comparator.compare(arraySorted[left], number)  != 0) {
 			if (comparator.compare(number, arraySorted[middle]) <= 0) {
 				right = middle - 1;
 			} else {
@@ -95,4 +97,60 @@ public class MyArrays {
 			array[index2] = swap;			
 		}
 	}
+
+	public static<T> T[] filter(T[] array, Predicate<T> predicate) {
+		int countPredicate = getCountPredicate(array, predicate);
+		T[] res = Arrays.copyOf(array, countPredicate);
+
+		int index = 0;
+		for(T element: array) {
+			if(predicate.test(element)) {
+				res[index++] = element;
+			}
+		}
+		return res;
+	}
+	
+	private static <T> int getCountPredicate(T[] array, Predicate<T> predicate) {
+		int res = 0;
+
+		for(T element: array) {
+			if(predicate.test(element)) {
+				res++;
+			}
+		}
+		return res;
+	}
+	
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
+		//one code line with no additional methods
+		return filter(array, predicate.negate());
+	}
+	
+	public static <T> T[] removeRepeated(T[] array) {
+		//try to write this method based on removeIf
+		T[] res = Arrays.copyOf(array, array.length);
+		T[] middle = null;
+		int finalLength = array.length;
+		for (int index = 0; index < finalLength - 1; index++) {
+			T el = res[index];
+			middle = Arrays.copyOfRange(res, index + 1, finalLength);
+			middle = removeIf(middle, a -> a.equals(el));
+			System.arraycopy(middle, 0, res, index + 1, middle.length);
+			finalLength = index + middle.length + 1;
+		}
+		return Arrays.copyOf(res, finalLength);
+	}
+
+	public static <T> boolean contains(T[] array, T pattern) {
+		// returns true if element equaled to pattern exists in array
+		boolean res = false;
+		int index = 0;
+		while (index < array.length && !res) {
+			res = pattern == null ? array[index] == null : pattern.equals(array[index]);
+			index++;
+		}
+		return res;
+	}
+
 }
