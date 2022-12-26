@@ -39,8 +39,8 @@ class MyArraysTest {
 	
 	@Test
 	void evenOddTest() {
-		Integer numbers[] = {13,2, -8,47, 100, 10, 7};
-		Integer expected[] = {-8, 2, 10, 100, 47, 13, 7};
+		Integer numbers[] = {13, 2, -8, 47, 100, 10, 7, -5, -3};
+		Integer expected[] = {-8, 2, 10, 100, 47, 13, 7, -3, -5};
 		MyArrays.sort(numbers, new EvenOddComparator());
 		assertArrayEquals(expected, numbers);
 	}	
