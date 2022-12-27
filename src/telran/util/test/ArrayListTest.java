@@ -182,6 +182,10 @@ public class ArrayListTest {
 			assertEquals(wasErrorJ, wasErrorT);
 			testArrays();
 		}
+		el = getRandomEl();
+		arJ.add(size, el);
+		arT.add(size, el);
+		testArrays();
 	}
 	
 }

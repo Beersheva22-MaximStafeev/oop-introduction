@@ -20,8 +20,7 @@ public class ArrayList<T> implements List<T> {
 	
 	@Override
 	public boolean add(T element) {
-		checkReallocate();
-		array[size++] = element;
+		add(size, element);
 		return true;
 	}
 	
@@ -95,7 +94,7 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public void add(int index, T element) {
-		this.checkBounds(index, size + 1);
+		checkBounds(index, size + 1);
 		checkReallocate();
 		System.arraycopy(array, index, array, index + 1, size - index);
 		array[index] = element;
@@ -142,7 +141,7 @@ public class ArrayList<T> implements List<T> {
 	}
 	
 	private void checkBounds(int index) {
-		this.checkBounds(index, size);
+		checkBounds(index, size);
 	}
 
 	private void checkBounds(int index, int max) {
