@@ -141,6 +141,19 @@ public class MyArrays {
 		}
 		return Arrays.copyOf(res, finalLength);
 	}
+	
+	public static <T> T[] removeRepeatedNew(T[] array) {
+		final Object[] helper = new Object[array.length];
+		final int index[] = {0};
+		return removeIf(array, element -> {
+			boolean res = true;
+			if (!contains(helper, element)) {
+				helper[index[0]++] = element;
+				res = false;
+			}
+			return res;
+		});
+	}
 
 	public static <T> boolean contains(T[] array, T pattern) {
 		// returns true if element equaled to pattern exists in array
@@ -149,6 +162,43 @@ public class MyArrays {
 		while (index < array.length && !res) {
 			res = pattern == null ? array[index] == null : pattern.equals(array[index]);
 			index++;
+		}
+		return res;
+	}
+
+	public static <T> boolean containsNew(T[] array, T pattern) {
+		// returns true if element equaled to pattern exists in array
+		int index = 0;
+		while (index < array.length && isEqual(pattern, array[index])) {
+			index++;
+		}
+		return index < array.length;
+	}
+
+	private static <T> boolean isEqual(T el1, T el2) {
+		// TO DO Auto-generated method stub
+		return el1 == null ? el1 == el2: el1.equals(el2);
+	}
+	
+	public static <T> String join(T[] array, String delimeter) {
+		String res = "";
+		if (array.length > 0) {
+			StringBuilder builder = new StringBuilder(array[0].toString());
+			for (int index = 1; index < array.length; index++) {
+				builder.append(delimeter).append(array[index]);
+			}
+			res = builder.toString();
+		}
+		return res;
+	}
+
+	public static <T> String joinString(T[] array, String delimeter) {
+		String res = "";
+		if (array.length > 0) {
+			res = array[0].toString();
+			for (int index = 1; index < array.length; index++) {
+				res += delimeter + array[index].toString();
+			}
 		}
 		return res;
 	}
