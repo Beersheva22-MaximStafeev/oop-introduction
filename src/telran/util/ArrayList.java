@@ -84,11 +84,10 @@ public class ArrayList<T> implements List<T> {
 		T[] res = ar;
 		if (res.length < size) {
 			res = Arrays.copyOf(res, size);
-		}
-		System.arraycopy(array, 0, res, 0, size);
-		if (size <= res.length) {
+		} else {
 			Arrays.fill(res, size, res.length, null);
 		}
+		System.arraycopy(array, 0, res, 0, size);
 		return res;
 	}
 
