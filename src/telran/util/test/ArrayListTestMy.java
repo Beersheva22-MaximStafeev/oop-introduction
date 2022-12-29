@@ -1,9 +1,10 @@
 package telran.util.test;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 
@@ -122,6 +123,9 @@ public class ArrayListTestMy {
 			testArrays();
 		}
 		add100Rnd();
+		arJ.removeIf(e -> false);
+		arT.removeIf(e -> false);
+		testArrays();
 		arJ.removeIf(e -> true);
 		arT.removeIf(e -> true);
 		testArrays();
@@ -145,7 +149,11 @@ public class ArrayListTestMy {
 		
 		for (int i = arJ.size() - 1; i >= 0; i--) {
 			assertEquals(arJ.lastIndexOf(arJ.get(i)), arT.lastIndexOf(arT.get(i)));
+			String el1 = getRandomEl();
+			assertEquals(arJ.lastIndexOf(el1), arT.lastIndexOf(el1));
 		}
+		assertEquals(arJ.lastIndexOf(null), arT.lastIndexOf(null));
+		
 		
 		for (int i = -10; i < arJ.size() + 10; i++) {
 			String el3 = getRandomEl();
@@ -269,5 +277,12 @@ public class ArrayListTestMy {
 		
 		assertArrayEquals(expectedArray, list.toArray(new String[0]));
 		assertArrayEquals(expectedArrayWithNulls, list.toArray(new String[11]));
-	}
+
+		Iterator<String> iterator = list.iterator();
+		while (iterator.hasNext()) {
+			iterator.next();
+		}
+		assertFalse(iterator.hasNext());
+		assertThrows(NoSuchElementException.class, () -> {iterator.next();});
+}
 }
