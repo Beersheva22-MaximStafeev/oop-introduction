@@ -1,6 +1,8 @@
 package telran.util;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ArrayList<T> implements List<T> {
@@ -8,6 +10,29 @@ public class ArrayList<T> implements List<T> {
 	public static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
 	private int size;
+	
+	private class ArrayListIterator implements Iterator<T> {
+		int current = 0;
+		
+		@Override
+		public boolean hasNext() {
+			return current < size;
+		}
+
+		@Override
+		public T next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			return array[current++];
+		}
+		
+	}
+	
+	@Override
+	public Iterator<T> iterator() {
+		return new ArrayListIterator();		
+	}
 	
 	@SuppressWarnings("unchecked")
 	public ArrayList(int capacity) {
@@ -47,6 +72,21 @@ public class ArrayList<T> implements List<T> {
 
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
+		int indexNew = 0;
+		int indexReal = 0;
+		while (indexReal < size) {
+			if (predicate.test(array[indexReal])) {
+				indexReal++;
+			} else {
+				array[indexNew++] = array[indexReal++];
+			}
+		}
+		Arrays.fill(array, indexNew, size, null);
+		size = indexNew;
+		return indexReal > indexNew;
+	}
+
+	public boolean removeIfBadN2(Predicate<T> predicate) {
 		int index = 0;
 		boolean res = false;
 		while (index < size) {
@@ -106,6 +146,8 @@ public class ArrayList<T> implements List<T> {
 		T res = array[index];
 		System.arraycopy(array, index + 1, array, index, size - index - 1);
 		size--;
+		// element not needed now, we erase link to object so sent this object to garbage collector 
+		array[size] = null;
 		return res;
 	}
 
