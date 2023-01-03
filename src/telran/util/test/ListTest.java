@@ -31,10 +31,7 @@ public abstract class ListTest extends CollectionTest {
 		Integer [] expected1 = {10, 100, -5, 100, 134, 280, 120, 15};
 		Integer [] expected2 = {8, 10, 100, -5, 100, 134, 280, 120, 15};
 		Integer [] expected3 = {8, 10, 100, -5, 100, 134, 280, 120, 15, 200};
-		try {
-			list.add(1000, 1000);
-			fail("should be exception");
-		} catch(IndexOutOfBoundsException e) {}
+		assertThrowsExactly(IndexOutOfBoundsException.class, () -> list.add(1000, 1000));
 		list.add(3, 100);
 		assertArrayEquals(expected1, list.toArray(empty));
 		list.add(0, 8);
@@ -48,10 +45,7 @@ public abstract class ListTest extends CollectionTest {
 		Integer [] expected1 = {10, 100, -5, 280, 120, 15};
 		Integer [] expected2 = { 100, -5,  280, 120, 15};
 		Integer [] expected3 = { 100, -5,  280, 120};
-		try {
-			list.remove(1000);
-			fail("should be exception");
-		} catch(IndexOutOfBoundsException e) {}
+		assertThrowsExactly(IndexOutOfBoundsException.class, () -> list.remove(1000));
 		assertEquals(134,list.remove(3));
 		assertArrayEquals(expected1, list.toArray(empty));
 		assertEquals(10, list.remove(0));
@@ -80,10 +74,7 @@ public abstract class ListTest extends CollectionTest {
 
 	@Test
 	void testGet() {
-		try {
-			list.get(1000);
-			fail("should be exception");
-		} catch(IndexOutOfBoundsException e) {}
+		assertThrowsExactly(IndexOutOfBoundsException.class, () -> list.get(1000));
 		assertEquals(10, list.get(0));
 	}
 

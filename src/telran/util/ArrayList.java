@@ -110,11 +110,6 @@ public class ArrayList<T> implements List<T> {
 		return size;
 	}
 
-	@Override
-	public boolean contains(T pattern) {
-		return indexOf(pattern) > -1;
-	}
-
 	private boolean isEqual(T element1, T element2) {
 		return element1 == null ? element1 == element2 : element1.equals(element2);
 	}
