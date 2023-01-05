@@ -119,13 +119,10 @@ public class LinkedList<T> implements List<T>, Iterable<T> {
 		boolean res = false;
 		while (node != null) {
 			if (predicate.test(node.obj)) {
-				Node<T> nextNode = node.next;
 				removeNode(node);
-				node = nextNode;
 				res = true;
-			} else {
-				node = node.next;
 			}
+			node = node.next;
 		}
 		return res;
 	}
