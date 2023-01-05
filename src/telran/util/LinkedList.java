@@ -116,15 +116,14 @@ public class LinkedList<T> implements List<T>, Iterable<T> {
 	@Override
 	public boolean removeIf(Predicate<T> predicate) {
 		Node<T> node = head;
-		boolean res = false;
+		int oldSize = size;
 		while (node != null) {
 			if (predicate.test(node.obj)) {
 				removeNode(node);
-				res = true;
 			}
 			node = node.next;
 		}
-		return res;
+		return oldSize > size;
 	}
 
 	@Override
