@@ -3,7 +3,6 @@ package telran.util.test;
 
 
 import org.junit.jupiter.api.BeforeEach;
-
 import telran.util.*;
 
 class ArrayListTest extends ListTest{
@@ -13,5 +12,6 @@ class ArrayListTest extends ListTest{
 		collection = new ArrayList<>(2);
 		super.setUp();
 	}
+
 	
 }

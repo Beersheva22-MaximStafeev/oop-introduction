@@ -5,14 +5,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
-public class ArrayList<T> implements List<T> {
+public class ArrayList<T> extends AbstractCollection<T> implements List<T> {
 
 	public static final int DEFAULT_CAPACITY = 16;
 	private T[] array;
-	private int size;
 	
 	private class ArrayListIterator implements Iterator<T> {
 		int current = 0;
+		boolean flNext = false;
 		
 		@Override
 		public boolean hasNext() {
@@ -24,9 +24,18 @@ public class ArrayList<T> implements List<T> {
 			if (!hasNext()) {
 				throw new NoSuchElementException();
 			}
+			flNext = true;
 			return array[current++];
 		}
 		
+		@Override
+		public void remove() {
+			if (!flNext) {
+				throw new IllegalStateException();
+			}
+			ArrayList.this.remove(current - 1);
+			flNext = false;
+		}
 	}
 	
 	@Override
@@ -97,32 +106,6 @@ public class ArrayList<T> implements List<T> {
 				index++;
 			}
 		}
-		return res;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return size == 0;
-	}
-
-	@Override
-	public int size() {
-		return size;
-	}
-
-	private boolean isEqual(T element1, T element2) {
-		return element1 == null ? element1 == element2 : element1.equals(element2);
-	}
-
-	@Override
-	public T[] toArray(T[] ar) {
-		T[] res = ar;
-		if (res.length < size) {
-			res = Arrays.copyOf(res, size);
-		} else {
-			Arrays.fill(res, size, res.length, null);
-		}
-		System.arraycopy(array, 0, res, 0, size);
 		return res;
 	}
 
