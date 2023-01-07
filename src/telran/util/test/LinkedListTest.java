@@ -40,14 +40,11 @@ class LinkedListTest extends ListTest{
 	private LinkedList<String> initList(boolean addOne) {
 		// for odd and even sizes
 		LinkedList<String> myList = new LinkedList<>();
-		assertFalse(myList.hasLoop());
-		myList.add("prpr");
-		assertFalse(myList.hasLoop());
-		myList.add("wewe");
-		assertFalse(myList.hasLoop());
-		myList.add("cvcv");
-		assertFalse(myList.hasLoop());
-		myList.add("ahah");
+		for (int i = 0; i < 100; i++) {
+			assertFalse(myList.hasLoop());
+			myList.add("prpr");
+			
+		}
 		assertFalse(myList.hasLoop());
 		if (addOne) {
 			myList.add("ohjk");
