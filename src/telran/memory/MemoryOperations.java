@@ -6,6 +6,7 @@ public class MemoryOperations {
 		int l = 0;
 		int r = Integer.MAX_VALUE;
 		int res = l + (r - l) / 2;
+		@SuppressWarnings("unused")
 		byte[] ar = null;
 		while (l <= r) {
 			try {

@@ -2,8 +2,6 @@ package telran.util.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Iterator;
-
 import org.junit.jupiter.api.*;
 
 import telran.util.*;
@@ -19,9 +17,19 @@ class LinkedListTest extends ListTest{
 	@Test
 	void testLoop() {
 		LinkedList<String> myList;
-		for (int i = 0; i < 4; i++) {
-			for (int j = i; j < 4; j++) {
-				myList = initList();
+		myList = initList(false);
+		for (int i = 0; i < myList.size(); i++) {
+			for (int j = i; j < myList.size(); j++) {
+				myList = initList(false);
+				assertFalse(myList.hasLoop());
+				myList.setNext(j, i);
+				assertTrue(myList.hasLoop());
+			}
+		}
+		myList = initList(true);
+		for (int i = 0; i < myList.size(); i++) {
+			for (int j = i; j < myList.size(); j++) {
+				myList = initList(true);
 				assertFalse(myList.hasLoop());
 				myList.setNext(j, i);
 				assertTrue(myList.hasLoop());
@@ -29,7 +37,8 @@ class LinkedListTest extends ListTest{
 		}
 	}
 	
-	private LinkedList<String> initList() {
+	private LinkedList<String> initList(boolean addOne) {
+		// for odd and even sizes
 		LinkedList<String> myList = new LinkedList<>();
 		assertFalse(myList.hasLoop());
 		myList.add("prpr");
@@ -40,15 +49,19 @@ class LinkedListTest extends ListTest{
 		assertFalse(myList.hasLoop());
 		myList.add("ahah");
 		assertFalse(myList.hasLoop());
+		if (addOne) {
+			myList.add("ohjk");
+			assertFalse(myList.hasLoop());
+		}
 		return myList;
 	}
 	
-	private void printList(LinkedList<String> myList, int max) {
-		int i = 0;
-		Iterator<String> it = myList.iterator();
-		while (i < max && it.hasNext()) {
-			System.out.printf("i: %d, s: %s\n", i++, it.next());
-		}
-		System.out.printf("--\n");
-	}
+//	private void printList(LinkedList<String> myList, int max) {
+//		int i = 0;
+//		Iterator<String> it = myList.iterator();
+//		while (i < max && it.hasNext()) {
+//			System.out.printf("i: %d, s: %s\n", i++, it.next());
+//		}
+//		System.out.printf("--\n");
+//	}
 }

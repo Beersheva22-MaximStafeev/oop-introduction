@@ -22,7 +22,7 @@ public class MemoryOperationsPseudo {
 		int l = 0;
 		int r = Integer.MAX_VALUE;
 		int res = l + (r - l) / 2;
-		byte[] ar = null;
+//		byte[] ar = null;
 		while (l <= r) {
 			try {
 				makeThrow(res);
@@ -30,7 +30,7 @@ public class MemoryOperationsPseudo {
 			} catch (Throwable e) {
 				r = res - 1;
 			}
-			ar = null;
+//			ar = null;
 			res = l + (r - l) / 2;
 		}
 		return res - 1;
