@@ -105,16 +105,18 @@ public abstract class CollectionTest {
 		assertTrue(collection.contains(num));
 		it1.remove();
 		assertFalse(collection.contains(num));
-
-		Set<String> strings = new HashSet<>();
-		strings.add("aaa");
-		strings.add("bbb");
-		Iterator<String> it3 = strings.iterator();
-		it3.next();
-		it3.remove();
-		it3.next();
-		it3.remove();
-		assertTrue(strings.isEmpty());
 	}
 	
+	@Test
+	void addRemoveTest() {
+		collection.removeIf((a) -> true);
+		collection.add(10);
+		collection.add(20);
+		Iterator<Integer> it = collection.iterator();
+		it.next();
+		it.remove();
+		it.next();
+		it.remove();
+		assertTrue(collection.isEmpty());
+	}
 }

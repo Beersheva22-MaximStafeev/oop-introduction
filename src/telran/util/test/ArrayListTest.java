@@ -13,17 +13,4 @@ class ArrayListTest extends ListTest {
 		super.setUp();
 	}
 
-	@Test
-	void removeIteratorTest() {
-		ArrayList<String> strings = new ArrayList<>();
-		strings.add("aaa");
-		strings.add("bbb");
-		Iterator<String> it = strings.iterator();
-		it.next();
-		it.remove();
-		it.next();
-		it.remove();
-		assertTrue(strings.isEmpty());
-		super.removeIteratorTest();
-	}
 }
