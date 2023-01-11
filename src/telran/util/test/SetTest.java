@@ -35,6 +35,7 @@ public class SetTest extends CollectionTest {
 	}
 	
 	@Override
+	@Test
 	void testIterator() {
 		int maxLen = 1000;
 		String[] initArray = new String[maxLen];

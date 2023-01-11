@@ -1,12 +1,6 @@
 package telran.util.test;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.util.Iterator;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.*;
 import telran.util.*;
 
 public class HashSetTest extends SetTest {
