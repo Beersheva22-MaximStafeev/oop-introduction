@@ -39,13 +39,16 @@ public class SetTest extends CollectionTest {
 	void testIterator() {
 		int maxLen = 1000;
 		String[] initArray = new String[maxLen];
+		java.util.List<String> checkArray = new java.util.ArrayList<>();
 		Set<String> testSet = new HashSet<>(4, 0.75f);
+		String tst;
 		int i = 0;
 		
 		while (i < maxLen) {
-			String tst = getRandomEl();
-			if (!testSet.contains(tst)) {
+			tst = getRandomEl();
+			if (!checkArray.contains(tst)) {
 				assertTrue(testSet.add(tst));
+				checkArray.add(tst);
 				initArray[i++] = tst;
 			} else {
 				assertFalse(testSet.add(tst));
