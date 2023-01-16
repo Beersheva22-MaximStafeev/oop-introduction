@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,9 +14,9 @@ import telran.util.*;
 public class SetTest extends CollectionTest {
 
 	Set<Integer> set;
-	
+
 	@BeforeEach
-	@Override 
+	@Override
 	void setUp() throws Exception {
 		super.setUp();
 		set = (Set<Integer>) collection;
@@ -31,9 +30,10 @@ public class SetTest extends CollectionTest {
 	}
 
 	private String getRandomEl() {
-		return ((Integer) Randomizers.getRandomNumber((int)'A', (int)'Z')).toString() + Randomizers.getRandomNumber(100000, 999999);
+		return ((Integer) Randomizers.getRandomNumber((int) 'A', (int) 'Z')).toString()
+				+ Randomizers.getRandomNumber(100000, 999999);
 	}
-	
+
 	@Override
 	@Test
 	void testIterator() {
@@ -43,7 +43,7 @@ public class SetTest extends CollectionTest {
 		Set<String> testSet = new HashSet<>(4, 0.75f);
 		String tst;
 		int i = 0;
-		
+
 		while (i < maxLen) {
 			tst = getRandomEl();
 			if (!checkArray.contains(tst)) {
@@ -54,7 +54,7 @@ public class SetTest extends CollectionTest {
 				assertFalse(testSet.add(tst));
 			}
 		}
-		
+
 		String[] arrayInerator = new String[maxLen];
 		int index = 0;
 		Iterator<String> iterator = testSet.iterator();
