@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
 
 //import telran.util.LinkedList.Node;
 
-public class HashSet<T> extends AbstractCollection<T> implements Set<T>, Iterable<T> {
+public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	private static final int DEFAULT_TABLE_SIZE = 16;
 	private static final float DEFAULT_FACTOR = 0.75f;
 //	LinkedList<T>[] hashTable;

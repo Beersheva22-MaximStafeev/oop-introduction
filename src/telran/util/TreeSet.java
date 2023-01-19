@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class TreeSet<T> extends AbstractCollection<T> implements Set<T>, Iterable<T> {
+public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	private Node<T> root;
 	private Comparator<T> comparator;
 	
@@ -37,28 +37,8 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T>, Iterabl
 			T result = current.obj;
 			prev = current;
 			flNext = true;
-			if (current.right != null) {
-				current = findLeftmostDown(current.right);
-			} else {
-				current = findReturnFromLeft(current);
-			}
+			current = getNextCurrent(current);
 			return result;
-		}
-		
-		private Node<T> findReturnFromLeft(Node<T> startNode) {
-			Node<T> resultNode = startNode;
-			while (resultNode.parent != null && resultNode.parent.left != resultNode) {
-				resultNode = resultNode.parent;
-			}
-			return resultNode.parent;
-		}
-
-		private Node<T> findLeftmostDown(Node<T> startNode) {
-			Node<T> resultNode = startNode;
-			while (resultNode.left != null) {
-				resultNode = resultNode.left;
-			}
-			return resultNode;
 		}
 
 		@Override
@@ -85,6 +65,32 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T>, Iterabl
 		this.comparator = comparator;
 	}
 	
+	
+	private Node<T> findReturnFromLeft(Node<T> startNode) {
+		Node<T> resultNode = startNode;
+		while (resultNode.parent != null && resultNode.parent.left != resultNode) {
+			resultNode = resultNode.parent;
+		}
+		return resultNode.parent;
+	}
+
+	private Node<T> findLeftmostDown(Node<T> startNode) {
+		Node<T> resultNode = startNode;
+		while (resultNode.left != null) {
+			resultNode = resultNode.left;
+		}
+		return resultNode;
+	}
+
+	public Node<T> getNextCurrent(Node<T> current) {
+		if (current.right != null) {
+			current = findLeftmostDown(current.right);
+		} else {
+			current = findReturnFromLeft(current);
+		}
+		return current;
+	}
+
 	@SuppressWarnings("unchecked")
 	// for those types, witch are Comparable already
 	public TreeSet() {
@@ -219,6 +225,62 @@ public class TreeSet<T> extends AbstractCollection<T> implements Set<T>, Iterabl
 	@Override
 	public Iterator<T> iterator() {
 		return new TreeSetIterator();
+	}
+
+	@Override
+	public T floor(T element) {
+		// returns greatest among elements less than given element or equal
+		T res = null;
+		if (root != null) {
+			Node<T> current = root;
+			int comp = 0;
+			while (current != null && (comp = comparator.compare(current.obj, element)) != 0) {
+				if (comp < 0) {
+					res = res == null ? current.obj : comparator.compare(current.obj, res) > 0 ? current.obj : res;
+					current = current.right;
+				} else {
+					current = current.left;
+				}
+			}
+			if (current != null)
+				res = current.obj;
+		}
+		return res;
+	}
+
+	@Override
+	public T ceiling(T element) {
+		// returns least among elements greater than given element or equal
+		T res = null;
+		if (root != null) {
+			Node<T> current = root;
+			int comp = 0;
+			while (current != null && (comp = comparator.compare(current.obj, element)) != 0) {
+				if (comp > 0) {
+					res = res == null ? current.obj : comparator.compare(current.obj, res) < 0 ? current.obj : res;
+					current = current.left;
+				} else {
+					current = current.right;
+				}
+			}
+			if (current != null)
+				res = current.obj;
+		}
+		return res;
+	}
+
+	@Override
+	public T first() {
+		return findLeftmostDown(root).obj;
+	}
+
+	@Override
+	public T last() {
+		Node<T> resultNode = root;
+		while (resultNode.right != null) {
+			resultNode = resultNode.right;
+		}
+		return resultNode.obj;
 	}
 
 }
