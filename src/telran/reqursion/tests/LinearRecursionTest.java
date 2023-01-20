@@ -9,6 +9,20 @@ import org.junit.jupiter.api.Test;
 public class LinearRecursionTest {
 	
 	@Test
+	void isSubstringTest() {
+		String pattern = "6vBQOu59mwfwuu88zrKgmOktueboGTBuiakeAR24R2h5QllXcfdWZJN0KmCgWb1e";
+		for (int i = 0; i < pattern.length(); i++) {
+			for (int j = i; j <= pattern.length(); j++) {
+				String substring = pattern.substring(i, j);
+				assertTrue(isSubstring(pattern, substring));
+				assertFalse(isSubstring(pattern, "?" + substring));
+				assertFalse(isSubstring(pattern, substring + "?"));
+				assertFalse(isSubstring(pattern, substring.length() > 1 ? substring.substring(0, 1) + "?" + substring.substring(2) : "??"));
+			}
+		}
+	}
+	
+	@Test
 	void reverseTest() {
 		makeReverseTest(new int[] {}, new int[] {});
 		makeReverseTest(new int[] {1, 2}, new int[] {2, 1});

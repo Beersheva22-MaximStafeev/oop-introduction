@@ -96,4 +96,30 @@ public class LinearRecursion {
 		ar[index1] = ar[index2];
 		ar[index2] = tmp;
 	}
+	
+	public static boolean isSubstring(String string, String substring) {
+		// write function 
+		// returns true if a given 'substr' is indeed the
+		//substring of a given `string`
+		/* Challenges: 
+		 * 1. To apply only following methods of the class String: 
+		 * charAt(int ind);
+		 * String substring(int ind);
+		 * int length();
+		 * 2. No cycles;
+		*/
+		return isSubstring(0, string, substring);
+	}
+
+	private static boolean isSubstring(int i, String string, String substring) {
+		return i + substring.length() <= string.length() ? 
+				equals(i, 0, string, substring) || isSubstring(i + 1, string, substring) : 
+				false;
+	}
+
+	private static boolean equals(int i, int j, String string, String substring) {
+		return j < substring.length() ? 
+				string.charAt(i + j) == substring.charAt(j) && equals(i, j + 1, string, substring) :
+				true;
+	}
 }
