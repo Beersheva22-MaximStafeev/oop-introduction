@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
+	private static final int SYMBOLS_PER_LEVEL = 3;
+	private static final String SYMBOL = " ";
 	private Node<T> root;
 	private Comparator<T> comparator;
 	
@@ -43,6 +45,17 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 		@Override
 		public void remove() {
+			if (!flNext) {
+				throw new IllegalStateException();
+			}
+			flNext = false;
+			if (prev.left != null && prev.right != null) {
+				current = prev;
+			}
+			removeNode(prev);
+		}
+
+		public void removeV0() {
 			if (!flNext) {
 				throw new IllegalStateException();
 			}
@@ -161,19 +174,31 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	}
 	
 	private void removeNode(Node<T> node) {
+		if (node.left == null || node.right == null) {
+			removeNodeNotBothNulls(node);
+		} else {
+			removeNodeWithBothNotNulls(node);
+		}
+		size--;
+	}
+	
+	private void removeNodeNotBothNulls(Node<T> node) {
 		if (node.left == null && node.right == null) {
 			removeNodeList(node);
 		} else if (node.left == null) {
 			removeNodeWithLeftNull(node);
 		} else if (node.right == null) {
 			removeNodeWithRightNull(node);
-		} else {
-			removeNodeWithBothNotNulls(node);
 		}
-		size--;
 	}
 
 	private void removeNodeWithBothNotNulls(Node<T> node) {
+		Node<T> removedNode = findLeftmostDown(node.right);
+		node.obj = removedNode.obj;
+		removeNodeNotBothNulls(removedNode);
+	}
+	
+	private void removeNodeWithBothNotNullsV0(Node<T> node) {
 		if (node == root) {
 			root = node.left;
 			root.parent = null;
@@ -226,9 +251,27 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 	public Iterator<T> iterator() {
 		return new TreeSetIterator();
 	}
+	
+	private T floorCeiling(T pattern, boolean isFloor) {
+		T res = null;
+		int comp = 0;
+		Node<T> current = root;
+		while (current != null && (comp = comparator.compare(pattern, current.obj)) != 0) {
+			if ((comp < 0 && !isFloor) || (comp > 0 && isFloor) ) {
+				res = current.obj;
+			} 
+			current = comp < 0 ? current.left : current.right;
+		}
+		return current == null ? res : current.obj;
+		
+	}	
 
 	@Override
 	public T floor(T element) {
+		return floorCeiling(element, true);
+	}
+	
+	public T floorV0(T element) {
 		// returns greatest among elements less than given element or equal
 		T res = null;
 		if (root != null) {
@@ -250,6 +293,10 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 
 	@Override
 	public T ceiling(T element) {
+		return floorCeiling(element, false);
+	}
+		
+	public T ceilingV0(T element) {
 		// returns least among elements greater than given element or equal
 		T res = null;
 		if (root != null) {
@@ -282,5 +329,66 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		}
 		return resultNode.obj;
 	}
+	
+	public void displayTreeRotated() {
+		displayTreeRotated(root, 0);
+	}
+	
+	private void displayTreeRotated(Node<T> node, int level) {
+		if (node != null) {
+			displayTreeRotated(node.right, level + 1);
+			displayRoot(node, level);
+			displayTreeRotated(node.left, level + 1);
+		}
+	}
 
+
+	private void displayRoot(Node<T> node, int level) {
+		System.out.printf("%s%s%n", SYMBOL.repeat(SYMBOLS_PER_LEVEL * level), node.obj.toString());		
+	}
+
+
+	public int height() {
+		return height(root);
+	}
+
+	private int height(Node<T> node) {
+		return node == null ? 0 : 1 + Math.max(height(node.left), height(node.right));
+	}
+
+
+	// 2. find count of end elements = width
+	public int width() {
+		return width(root);
+	}
+
+	private int width(Node<T> node) {
+		int res = 0;
+		if (node != null) {
+			if (node.left == null && node.right == null) {
+				res = 1;
+			} else {
+				res = width(node.left) + width(node.right);
+			}
+		}
+		return res;
+	}
+
+	// 1. inversion: left <-> right
+	public void inversion() {
+		inversion(root);
+		comparator = comparator.reversed();
+	}
+
+
+	private void inversion(Node<T> node) {
+		if (node != null) {
+			inversion(node.left);
+			inversion(node.right);
+			Node<T> tmp = node.left;
+			node.left = node.right;
+			node.right = tmp;
+		}
+	}
+	
 }
