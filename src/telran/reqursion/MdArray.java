@@ -34,13 +34,11 @@ public class MdArray<T> {
 	}
 	
 	private MdArray<T> findElement(int[] dimensions) {
-		MdArray<T> res = null;
 		if (USE_LINEAR) {
-			res = findElementLinear(dimensions);
+			return findElementLinear(dimensions);
 		} else {
-			res = findElementReqursive(dimensions, 0);
+			return findElementReqursive(dimensions, 0);
 		}
-		return res;
 	}
 	
 	private MdArray<T> findElementLinear(int[] dimensions) {
