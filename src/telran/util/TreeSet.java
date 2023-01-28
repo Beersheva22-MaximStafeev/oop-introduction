@@ -55,6 +55,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 			removeNode(prev);
 		}
 
+		@SuppressWarnings("unused")
 		public void removeV0() {
 			if (!flNext) {
 				throw new IllegalStateException();
@@ -198,6 +199,7 @@ public class TreeSet<T> extends AbstractCollection<T> implements Sorted<T> {
 		removeNodeNotBothNulls(removedNode);
 	}
 	
+	@SuppressWarnings("unused")
 	private void removeNodeWithBothNotNullsV0(Node<T> node) {
 		if (node == root) {
 			root = node.left;

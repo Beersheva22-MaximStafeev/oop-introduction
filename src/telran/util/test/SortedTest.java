@@ -5,13 +5,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import telran.util.Sorted;
 
-public class SortedTest extends SetTest{
+public abstract class SortedTest extends SetTest{
+	private static final int N_ELEMENTS = 100000;
+	private static final int N_RUNS = 100000;
+	private Random rnd = new Random();
 	Sorted<Integer> sorted;
 	@Override
 	@BeforeEach
@@ -60,4 +65,26 @@ public class SortedTest extends SetTest{
 		assertEquals((Integer)280,sorted.last());
 	}
 
+	@Test
+	void perfomanceTestSortedAdding() {
+		Sorted<Integer> sorted = getSortedCollection();
+		IntStream.range(0, N_ELEMENTS).forEach(i -> sorted.add(i));
+		runPerfomanceTest(sorted);
+	}
+	
+	private void runPerfomanceTest(Sorted<Integer> sorted2) {
+		for (int i = 0; i < N_RUNS; i++) {
+			sorted2.floor(100);
+		}
+		
+	}
+
+	protected abstract Sorted<Integer> getSortedCollection();
+
+	@Test
+	void perfomanceTestRandomAdding() {
+		Sorted<Integer> sorted = getSortedCollection();
+		IntStream.range(0, N_ELEMENTS).forEach(i -> sorted.add(rnd.nextInt()));
+		runPerfomanceTest(sorted);
+	}
 }

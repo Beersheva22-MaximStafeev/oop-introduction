@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.jupiter.api.*;
 
+import telran.util.Sorted;
 import telran.util.TreeSet;
 
 public class TreeSetTest extends SortedTest {
@@ -43,5 +44,10 @@ public class TreeSetTest extends SortedTest {
 		}
 		assertArrayEquals(expected, actual);
 		assertTrue(tree.contains(280));
+	}
+
+	@Override
+	protected Sorted<Integer> getSortedCollection() {
+		return new TreeSet<Integer>();
 	}
 }
