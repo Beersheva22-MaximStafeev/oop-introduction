@@ -25,6 +25,11 @@ public class MdArrayTest {
 	}
 	
 	@Test
+	void wrongCreateTest() {
+		assertThrowsExactly(IndexOutOfBoundsException.class, () -> new MdArray<>(new int[] {0}, 10));
+	}
+	
+	@Test
 	void mdArrayEmptyTest() {
 		int[] dimensions = {};
 		MdArray<Integer> mdArray = new MdArray<>(dimensions, 20);

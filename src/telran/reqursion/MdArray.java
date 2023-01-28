@@ -17,13 +17,13 @@ public class MdArray<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public MdArray(int[] dimensions, int firstDim, T value) {
+	private MdArray(int[] dimensions, int firstDim, T value) {
 		if (firstDim == dimensions.length) {
 			this.value = value;
 			this.array = null;
 		} else {
 			if (dimensions[firstDim] <= 0) {
-				throw new ArrayIndexOutOfBoundsException("Cannot create array with " + dimensions[firstDim] + " length");
+				throw new IndexOutOfBoundsException("Cannot create array with " + dimensions[firstDim] + " length");
 			}
 			this.value = null;
 			array = new MdArray[dimensions[firstDim]];
