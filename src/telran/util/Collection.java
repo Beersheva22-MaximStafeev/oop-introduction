@@ -61,10 +61,10 @@ public interface Collection<T>  extends Iterable<T> {
 		return StreamSupport.stream(this.spliterator(), true);
 	}
 	
-	default Object[] toArrayShufling(T[] array) {
+	default T[] toArrayShufling(T[] array) {
 		// TO DO
 		// return array with collection elements in shuffled order
 		T[] ar = toArray(array);
-		return new Random().ints(0, size()).distinct().limit(size()).mapToObj(num -> ar[num]).toArray();
+		return new Random().ints(0, size()).distinct().limit(size()).mapToObj(num -> ar[num]).toArray(n -> ar);
 	}
 }

@@ -120,13 +120,13 @@ public abstract class CollectionTest {
 	}
 
 	@Test
-	void toArrayShuflingTestO() {
-		printArrayO(collection.toArrayShufling(new Integer[0]));
-		printArrayO(collection.toArrayShufling(new Integer[0]));
-		printArrayO(collection.toArrayShufling(new Integer[0]));
+	void toArrayShuflingTest() {
+		printArray(collection.toArrayShufling(new Integer[0]));
+		printArray(collection.toArrayShufling(new Integer[0]));
+		printArray(collection.toArrayShufling(new Integer[0]));
 	}
 	
-	void printArrayO(Object[] array) {
+	void printArray(Integer[] array) {
 		Arrays.stream(array).forEach(el -> System.out.printf("%3s, ", el.toString()));
 		System.out.println();
 	}
