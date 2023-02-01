@@ -50,4 +50,13 @@ public class TreeSetTest extends SortedTest {
 	protected Sorted<Integer> getSortedCollection() {
 		return new TreeSet<Integer>();
 	}
+	
+	@Test
+	void balanceTest() {
+		tree.balance();
+		assertEquals(3, tree.height());
+		assertEquals(4, tree.width());
+		System.out.println("************************ balanced tree *****************");
+		tree.displayTreeRotated();
+	}
 }

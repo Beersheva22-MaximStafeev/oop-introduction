@@ -119,4 +119,16 @@ public abstract class CollectionTest {
 		assertThrowsExactly(NoSuchElementException.class, () -> it.next());
 	}
 
+	@Test
+	void toArrayShuflingTestO() {
+		printArrayO(collection.toArrayShufling(new Integer[0]));
+		printArrayO(collection.toArrayShufling(new Integer[0]));
+		printArrayO(collection.toArrayShufling(new Integer[0]));
+	}
+	
+	void printArrayO(Object[] array) {
+		Arrays.stream(array).forEach(el -> System.out.printf("%3s, ", el.toString()));
+		System.out.println();
+	}
+
 }

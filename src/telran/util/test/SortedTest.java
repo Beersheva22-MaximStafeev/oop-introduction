@@ -69,12 +69,12 @@ public abstract class SortedTest extends SetTest{
 	void perfomanceTestSortedAdding() {
 		Sorted<Integer> sorted = getSortedCollection();
 		IntStream.range(0, N_ELEMENTS).forEach(i -> sorted.add(i));
-		runPerfomanceTest(sorted);
+		runPerformanceTest(sorted);
 	}
 	
-	private void runPerfomanceTest(Sorted<Integer> sorted2) {
+	private void runPerformanceTest(Sorted<Integer> sorted2) {
 		for (int i = 0; i < N_RUNS; i++) {
-			sorted2.floor(100);
+			sorted.floor(rnd.nextInt());
 		}
 		
 	}
@@ -85,6 +85,6 @@ public abstract class SortedTest extends SetTest{
 	void perfomanceTestRandomAdding() {
 		Sorted<Integer> sorted = getSortedCollection();
 		IntStream.range(0, N_ELEMENTS).forEach(i -> sorted.add(rnd.nextInt()));
-		runPerfomanceTest(sorted);
+		runPerformanceTest(sorted);
 	}
 }

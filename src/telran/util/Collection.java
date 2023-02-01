@@ -2,7 +2,10 @@ package telran.util;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.function.*;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 //import telran.util.LinkedList.Node;
 
@@ -50,4 +53,18 @@ public interface Collection<T>  extends Iterable<T> {
 		return ar;
 	}
 	
+	default Stream<T> stream() {
+		return StreamSupport.stream(this.spliterator(), false);
+	}
+	
+	default Stream<T> parappelStream() {
+		return StreamSupport.stream(this.spliterator(), true);
+	}
+	
+	default Object[] toArrayShufling(T[] array) {
+		// TO DO
+		// return array with collection elements in shuffled order
+		T[] ar = toArray(array);
+		return new Random().ints(0, size()).distinct().limit(size()).mapToObj(num -> ar[num]).toArray();
+	}
 }
