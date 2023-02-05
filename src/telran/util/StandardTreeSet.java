@@ -73,5 +73,9 @@ public class StandardTreeSet<T> implements Sorted<T> {
 		
 		return tree.last();
 	}
+	@Override
+	public T get(T pattern) {
+		throw new UnsupportedOperationException();
+	}
 
 }
