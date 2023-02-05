@@ -170,7 +170,6 @@ public class HashSet<T> extends AbstractCollection<T> implements Set<T> {
 	
 	@Override
 	public T get(T pattern) {
-		// FIXME
 		T res = null;
 		List<T> list = hashTable[getHashIndex(pattern)];
 		if (list != null) {
