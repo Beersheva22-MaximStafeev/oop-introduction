@@ -17,15 +17,6 @@ public class AbstractMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public V putIfAbsent(K key, V value) {
-		V res = get(key);
-		if (res == null) {
-			put(key, value);
-		}
-		return res;
-	}
-
-	@Override
 	public V get(K key) {
 		V res = null;
 		Entry<K, V> entry = set.get(new Entry<>(key, null));
@@ -36,21 +27,13 @@ public class AbstractMap<K, V> implements Map<K, V> {
 	}
 
 	@Override
-	public V getOrDefault(K key, V value) {
-		V res = get(key);
-		return res == null ? value : res;
-	}
-
-	@Override
 	public boolean contanisKey(K key) {
 		return set.contains(new Entry<>(key, null)) ;
 	}
 
 	@Override
 	public boolean containsValue(V value) {
-		boolean[] res = {false};
-		set.forEach(el -> res[0] |= isEqual(el.getValue(), value));
-		return res[0];
+		return set.stream().anyMatch(el -> isEqual(el.getValue(), value));
 	}
 
 	@Override
@@ -77,7 +60,7 @@ public class AbstractMap<K, V> implements Map<K, V> {
 		try {
 			@SuppressWarnings("unchecked")
 			Set<Entry<K, V>> res = set.getClass().getConstructor().newInstance();
-			set.forEach(el -> res.add(el));
+			set.forEach(res::add);
 			return res;
 		} catch (Exception e) {
 			throw new IllegalStateException();

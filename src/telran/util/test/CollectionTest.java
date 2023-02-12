@@ -1,18 +1,12 @@
 package telran.util.test;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import telran.util.*;
 
@@ -30,7 +24,18 @@ public abstract class CollectionTest {
 	}
 
 	abstract void testAdd();
-	abstract void testIterator();
+	
+	@Test
+	void testIterator() {
+		Integer actual[] = new Integer[numbers.length];
+		int index = 0;
+		Iterator<Integer> it = collection.iterator();
+		while(it.hasNext()) {
+			actual[index++] = it.next();
+		}
+		assertArrayEquals(numbers, actual);
+		
+	}
 	
 
 	@Test
@@ -120,6 +125,7 @@ public abstract class CollectionTest {
 	}
 
 	@Test
+	@Disabled
 	void toArrayShuflingTest() {
 		printArray(collection.toArrayShufling(new Integer[0]));
 		printArray(collection.toArrayShufling(new Integer[0]));

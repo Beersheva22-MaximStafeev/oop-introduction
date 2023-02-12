@@ -56,7 +56,7 @@ public interface Map<K, V> {
 	 * adds new or updates existing entry 
 	 * @param key
 	 * @param value
-	 * @return null, if adding new returning 
+	 * @return null, if adding new key 
 	 * @return  old value (reference), if pair exists in map with this key, so, we changing value
 	 *  
 	 */
@@ -69,7 +69,15 @@ public interface Map<K, V> {
 	 * @return null, if adding new returning
 	 * @return reference to existing value, if entry exists
 	 */
-	V putIfAbsent(K key, V value);
+	default public V putIfAbsent(K key, V value) {
+		V res = get(key);
+		if (res == null) {
+			put(key, value);
+		}
+		return res;
+	}
+
+
 	
 	/********************************************************************************/
 	/**
@@ -84,7 +92,12 @@ public interface Map<K, V> {
 	 * @param value
 	 * @return value if key exists otherwise 
 	 */
-	V getOrDefault(K key, V value);
+
+	default public V getOrDefault(K key, V value) {
+		V res = get(key);
+		return res == null ? value : res;
+	}
+
 	/********************************************************************************/
 	/**
 	 * 
