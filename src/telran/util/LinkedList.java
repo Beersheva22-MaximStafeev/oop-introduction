@@ -5,7 +5,9 @@ import java.util.NoSuchElementException;
 
 public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 
-	private static class Node<T> {
+	// ForLinkedHashSet
+	// private
+	static class Node<T> {
 		T obj;
 		Node<T> prev;
 		Node<T> next;
@@ -17,10 +19,12 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	private Node<T> head;
 	private Node<T> tail;
 	
-	private class LinkedListIterator implements Iterator<T> {
+	// ForLinkedHashSet
+	// private
+	class LinkedListIterator implements Iterator<T> {
 
-		Node<T> current = head;
-		boolean flNext = false;
+		private Node<T> current = head;
+		private boolean flNext = false;
 
 		@Override
 		public boolean hasNext() {
@@ -47,6 +51,19 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			removeNode(removedNode);
 			flNext = false;
 		}
+		
+		// ForLinkedHashSet
+		Node<T> getNodeToRemove() {
+			if (!flNext) {
+				throw new IllegalStateException();
+			}
+			return current == null ? tail : current.prev;
+		}
+	}
+	
+	// ForLinkedHashSet
+	Node<T> getTailNode() {
+		return tail;
 	}
 	
 	@Override
@@ -82,7 +99,9 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 		return res;
 	}
 
-	private void removeNode(Node<T> node) {
+	// ForLinkedHashSet
+	// private 
+	void removeNode(Node<T> node) {
 		if (node == head) {
 			removeHead();
 		} else if (node == tail) {
