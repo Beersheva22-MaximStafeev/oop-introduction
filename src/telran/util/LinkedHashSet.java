@@ -1,8 +1,6 @@
 package telran.util;
 
 import java.util.Iterator;
-//import java.util.NoSuchElementException;
-//import telran.util.LinkedList;
 import telran.util.LinkedList.Node;
 
 public class LinkedHashSet<T> extends AbstractCollection<T> implements Set<T> {
@@ -12,6 +10,7 @@ public class LinkedHashSet<T> extends AbstractCollection<T> implements Set<T> {
 	private class LinkedHashSetIterator implements Iterator<T> {
 
 		Iterator<T> it = list.iterator();
+		T current = null;
 
 		@Override
 		public boolean hasNext() {
@@ -20,15 +19,14 @@ public class LinkedHashSet<T> extends AbstractCollection<T> implements Set<T> {
 
 		@Override
 		public T next() {
-			return it.next();
+			current = it.next();
+			return current;
 		}
 		
 		@Override
 		public void remove() {
-			@SuppressWarnings({ "unchecked", "rawtypes" })
-			LinkedList.Node<T> removedNode = ((LinkedList.LinkedListIterator)it).getNodeToRemove();
 			it.remove();
-			hashMap.remove(removedNode.obj);
+			hashMap.remove(current);
 			size--;
 		}
 	}

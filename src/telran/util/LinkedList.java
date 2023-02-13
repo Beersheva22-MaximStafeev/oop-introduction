@@ -19,12 +19,10 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 	private Node<T> head;
 	private Node<T> tail;
 	
-	// ForLinkedHashSet
-	// private
-	class LinkedListIterator implements Iterator<T> {
+	private class LinkedListIterator implements Iterator<T> {
 
-		private Node<T> current = head;
-		private boolean flNext = false;
+		Node<T> current = head;
+		boolean flNext = false;
 
 		@Override
 		public boolean hasNext() {
@@ -50,14 +48,6 @@ public class LinkedList<T> extends AbstractCollection<T> implements List<T> {
 			Node<T> removedNode = current == null ? tail : current.prev;  
 			removeNode(removedNode);
 			flNext = false;
-		}
-		
-		// ForLinkedHashSet
-		Node<T> getNodeToRemove() {
-			if (!flNext) {
-				throw new IllegalStateException();
-			}
-			return current == null ? tail : current.prev;
 		}
 	}
 	
