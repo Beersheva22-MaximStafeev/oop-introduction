@@ -19,8 +19,7 @@ public class LinkedHashSet<T> extends AbstractCollection<T> implements Set<T> {
 
 		@Override
 		public T next() {
-			current = it.next();
-			return current;
+			return current = it.next();
 		}
 		
 		@Override
